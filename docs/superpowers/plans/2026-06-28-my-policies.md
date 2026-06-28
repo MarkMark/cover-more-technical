@@ -59,9 +59,11 @@
 ### Task 1: Create The AI Development Log
 
 **Files:**
+
 - Create: `docs/dev-logs/2026-06-28-my-policies-ai-development-log.md`
 
 **Interfaces:**
+
 - Consumes: Approved design spec at `docs/superpowers/specs/2026-06-28-my-policies-design.md`
 - Produces: Required development log for reviewers before implementation code begins.
 
@@ -194,10 +196,12 @@ Expected output includes all three headings.
 **Required model:** `5.5`
 
 **Files:**
+
 - Create: `lib/format.ts`
 - Create: `lib/pagination.ts`
 
 **Interfaces:**
+
 - Consumes: ISO date strings in `YYYY-MM-DD` format; query values of type `string | string[] | undefined`.
 - Produces:
   - `formatDate(value: string): string`
@@ -292,10 +296,12 @@ $200
 **Required model:** `5.5`
 
 **Files:**
+
 - Create: `lib/api/policies.ts`
 - Uses existing: `lib/api/mock-policies.json`
 
 **Interfaces:**
+
 - Consumes:
   - `formatDate` is not consumed here; API returns raw dates for UI modeling.
   - `lib/api/mock-policies.json`
@@ -403,7 +409,10 @@ function comparePolicyStartDates(sortOrder: PolicySortOrder) {
 export async function fetchPolicies(
   options: FetchPoliciesOptions = {},
 ): Promise<FetchPoliciesResponse> {
-  const pageSize = normalisePositiveInteger(options.pageSize, DEFAULT_PAGE_SIZE);
+  const pageSize = normalisePositiveInteger(
+    options.pageSize,
+    DEFAULT_PAGE_SIZE,
+  );
   const requestedPage = normalisePositiveInteger(options.page, DEFAULT_PAGE);
   const sortOrder = options.sortOrder ?? DEFAULT_SORT_ORDER;
 
@@ -464,9 +473,11 @@ Expected: build succeeds, or fails only because later UI files are not implement
 **Required model:** `5.5`
 
 **Files:**
+
 - Create: `app/components/policy-card.tsx`
 
 **Interfaces:**
+
 - Consumes:
   - `type Policy` from `@/lib/api/policies`
   - `formatCurrency`, `formatDate`, and `formatDateRange` from `@/lib/format`
@@ -485,12 +496,7 @@ import { ExternalLink } from "lucide-react";
 import type { Policy } from "@/lib/api/policies";
 import { formatCurrency, formatDate, formatDateRange } from "@/lib/format";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 type PolicyCardModel = {
   documents: Array<{ href: string; label: string }>;
@@ -536,7 +542,7 @@ function PolicyCardHeader({ policyNumber }: { policyNumber: string }) {
     <CardHeader className="px-0">
       <CardTitle className="text-3xl">
         <span className="text-primary font-semibold">Policy number:</span>{" "}
-        <span className="font-normal text-foreground">{policyNumber}</span>
+        <span className="text-foreground font-normal">{policyNumber}</span>
       </CardTitle>
     </CardHeader>
   );
@@ -573,11 +579,7 @@ function PolicyCardFactGroup({
 }) {
   return (
     <dl
-      className={
-        hasDivider
-          ? "grid gap-3 md:border-l md:pl-8"
-          : "grid gap-3"
-      }
+      className={hasDivider ? "grid gap-3 md:border-l md:pl-8" : "grid gap-3"}
     >
       {children}
     </dl>
@@ -711,12 +713,14 @@ Expected: build succeeds, or fails only because the page integration components 
 **Required model:** `5.5`
 
 **Files:**
+
 - Create: `app/components/policies-content.tsx`
 - Create: `app/components/policies-pagination.tsx`
 - Create: `app/components/policies-skeleton.tsx`
 - Modify: `app/page.tsx`
 
 **Interfaces:**
+
 - Consumes:
   - `fetchPolicies` from `@/lib/api/policies`
   - `parsePositivePage` from `@/lib/pagination`
@@ -805,10 +809,7 @@ export function PoliciesSkeleton() {
   return (
     <div className="grid gap-6">
       {Array.from({ length: 3 }, (_, index) => (
-        <div
-          className="rounded-xl border bg-card p-6"
-          key={index}
-        >
+        <div className="bg-card rounded-xl border p-6" key={index}>
           <Skeleton className="h-9 w-64" />
           <div className="mt-8 grid gap-4 md:grid-cols-[1fr_16rem]">
             <div className="grid gap-4 md:grid-cols-2">
@@ -857,7 +858,7 @@ export async function PoliciesContent({ page }: PoliciesContentProps) {
 
   if (policies.length === 0) {
     return (
-      <div className="rounded-xl border bg-card p-6 text-card-foreground">
+      <div className="bg-card text-card-foreground rounded-xl border p-6">
         No active policies found.
       </div>
     );
@@ -901,12 +902,10 @@ export default async function Home({ searchParams }: HomeProps) {
   const currentPage = parsePositivePage(page);
 
   return (
-    <main className="min-h-screen bg-muted/40 px-4 py-8 md:px-8 md:py-12">
+    <main className="bg-muted/40 min-h-screen px-4 py-8 md:px-8 md:py-12">
       <div className="mx-auto grid max-w-6xl gap-8">
         <header>
-          <h1 className="text-3xl font-semibold tracking-tight">
-            My Policies
-          </h1>
+          <h1 className="text-3xl font-semibold tracking-tight">My Policies</h1>
         </header>
         <Suspense fallback={<PoliciesSkeleton />}>
           <PoliciesContent page={currentPage} />
@@ -944,9 +943,11 @@ Expected: build succeeds.
 **Required model for any code fixes:** `5.5`
 
 **Files:**
+
 - Modify only files from Tasks 2-5 if verification exposes defects.
 
 **Interfaces:**
+
 - Consumes: completed My Policies implementation.
 - Produces: verified page and any small fixes required by lint, build, formatting, or browser review.
 
