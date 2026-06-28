@@ -1,5 +1,15 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Reviewer Notes
+
+The `docs/` directory contains supporting context for reviewing this technical test:
+
+- `docs/ai.md` outlines how AI assistance was used, including the tools, agents, and skills involved.
+- `docs/architecture.md` explains the project structure and where route-owned components, shared UI, and shared data access live.
+- `docs/styling.md` documents the Tailwind class grouping convention used for new and edited UI code.
+- `docs/dev-logs/` contains AI development logs for implementation tasks, including prompts, decisions, accepted changes, rejected changes, and tradeoffs.
+- `docs/superpowers/` contains the design specs and implementation plans created during the AI-assisted workflow. These files are included to make the planning and review trail explicit.
+
 ## Getting Started
 
 First, run the development server:
