@@ -138,7 +138,7 @@ function PolicyCardDocuments({
 
 function PolicyCardActions() {
   return (
-    <div className={cn("grid", "gap-2", "md:gap-4 md:pt-2")}>
+    <div className={cn("grid", "gap-2", "md:pt-2")}>
       <Button size="lg">Make a claim</Button>
       <Button size="lg" variant="outline">
         Manage my policy
