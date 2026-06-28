@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Policy } from "@/lib/api/policies";
 import { formatCurrency, formatDate, formatDateRange } from "@/lib/format";
+import { cn } from "@/lib/utils";
 
 type PolicyCardModel = {
   documents: Array<{ href: string; label: string }>;
@@ -33,8 +34,14 @@ export function PolicyCard({ policy }: PolicyCardProps) {
 
 function PolicyCardRoot({ children }: { children: ReactNode }) {
   return (
-    <Card>
-      <CardContent className="grid gap-8 md:grid-cols-[1fr_16rem] md:items-start">
+    <Card className={cn("ring-0")}>
+      <CardContent
+        className={cn(
+          "grid",
+          "gap-8",
+          "md:grid-cols-[1fr_auto] md:items-start",
+        )}
+      >
         {children}
       </CardContent>
     </Card>
@@ -42,15 +49,19 @@ function PolicyCardRoot({ children }: { children: ReactNode }) {
 }
 
 function PolicyCardMain({ children }: { children: ReactNode }) {
-  return <div className="grid gap-8">{children}</div>;
+  return <div className={cn("grid", "gap-8")}>{children}</div>;
 }
 
 function PolicyCardHeader({ policyNumber }: { policyNumber: string }) {
   return (
-    <CardHeader className="px-0">
-      <CardTitle className="text-3xl">
-        <span className="text-primary font-semibold">Policy number:</span>{" "}
-        <span className="text-foreground font-normal">{policyNumber}</span>
+    <CardHeader className={cn("px-0")}>
+      <CardTitle className={cn("text-xl", "md:text-2xl")}>
+        <span className={cn("font-semibold", "text-primary")}>
+          Policy number:
+        </span>{" "}
+        <span className={cn("font-normal", "text-foreground")}>
+          {policyNumber}
+        </span>
       </CardTitle>
     </CardHeader>
   );
@@ -62,7 +73,7 @@ function PolicyCardFacts({
   factGroups: PolicyCardModel["factGroups"];
 }) {
   return (
-    <div className="grid gap-4 md:grid-cols-2 md:gap-8">
+    <div className={cn("grid", "gap-1", "md:grid-cols-2 md:gap-8")}>
       {factGroups.map((facts, index) => (
         <PolicyCardFactGroup key={index} hasDivider={index > 0}>
           {facts.map((fact) => (
@@ -82,9 +93,7 @@ function PolicyCardFactGroup({
   hasDivider: boolean;
 }) {
   return (
-    <dl
-      className={hasDivider ? "grid gap-3 md:border-l md:pl-8" : "grid gap-3"}
-    >
+    <dl className={cn("grid", "gap-1", hasDivider && "md:border-l md:pl-8")}>
       {children}
     </dl>
   );
@@ -92,9 +101,9 @@ function PolicyCardFactGroup({
 
 function PolicyCardFact({ label, value }: { label: string; value: string }) {
   return (
-    <div className="text-base">
-      <dt className="inline font-semibold">{label}: </dt>
-      <dd className="inline">{value}</dd>
+    <div className={cn("text-sm")}>
+      <dt className={cn("inline", "font-semibold")}>{label}: </dt>
+      <dd className={cn("inline")}>{value}</dd>
     </div>
   );
 }
@@ -105,16 +114,21 @@ function PolicyCardDocuments({
   documents: PolicyCardModel["documents"];
 }) {
   return (
-    <div className="flex flex-wrap gap-x-8 gap-y-3">
+    <div className={cn("flex flex-wrap", "gap-x-8 gap-y-3")}>
       {documents.map((document) => (
         <a
-          className="inline-flex items-center gap-2 text-sm underline underline-offset-2"
+          className={cn(
+            "inline-flex items-center",
+            "gap-2",
+            "text-xs underline underline-offset-2",
+            "md:text-sm",
+          )}
           href={document.href}
           key={document.label}
           rel="noreferrer"
           target="_blank"
         >
-          <ExternalLink aria-hidden="true" className="size-4" />
+          <ExternalLink aria-hidden="true" className={cn("size-4")} />
           {document.label}
         </a>
       ))}
@@ -124,9 +138,11 @@ function PolicyCardDocuments({
 
 function PolicyCardActions() {
   return (
-    <div className="grid gap-4 md:pt-2">
-      <Button>Make a claim</Button>
-      <Button variant="outline">Manage my policy</Button>
+    <div className={cn("grid", "gap-2", "md:gap-4 md:pt-2")}>
+      <Button size="lg">Make a claim</Button>
+      <Button size="lg" variant="outline">
+        Manage my policy
+      </Button>
     </div>
   );
 }
