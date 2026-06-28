@@ -31,6 +31,12 @@
       "skillPath": "skills/finishing-a-development-branch/SKILL.md",
       "computedHash": "aa2632ed96df59c36348bd8f8ec1ff0fb0c5cc68b60691834687bf4cedc6be3f"
     },
+    "git-commit": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/git-commit/SKILL.md",
+      "computedHash": "2607fc60629b82b257136dd2a7a373f0a4466c0b49df7746d845d59313c99b21"
+    },
     "karpathy-guidelines": {
       "source": "multica-ai/andrej-karpathy-skills",
       "sourceType": "github",
