@@ -1,11 +1,11 @@
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+
 import type { PoliciesPagination as PoliciesPaginationData } from "@/lib/api/policies";
 import {
   Pagination,
   PaginationContent,
   PaginationItem,
   PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
 } from "@/components/ui/pagination";
 
 type PoliciesPaginationProps = {
@@ -19,22 +19,32 @@ export function PoliciesPagination({ pagination }: PoliciesPaginationProps) {
 
   return (
     <Pagination>
-      <PaginationContent>
+      <PaginationContent className="gap-4">
         {pagination.hasPreviousPage ? (
           <PaginationItem>
-            <PaginationPrevious
+            <PaginationLink
+              aria-label="Go to previous page"
+              className="rounded-full"
               href={getPageHref(pagination.currentPage - 1)}
-            />
+            >
+              <ChevronLeftIcon aria-hidden="true" />
+            </PaginationLink>
           </PaginationItem>
         ) : null}
         {Array.from({ length: pagination.totalPages }, (_, index) => {
           const page = index + 1;
+          const isActive = page === pagination.currentPage;
 
           return (
             <PaginationItem key={page}>
               <PaginationLink
+                className={
+                  isActive
+                    ? "bg-primary hover:bg-primary rounded-full border-transparent text-white hover:text-white"
+                    : "rounded-full border-neutral-900 bg-neutral-50 text-neutral-900 hover:bg-neutral-50 hover:text-neutral-900"
+                }
                 href={getPageHref(page)}
-                isActive={page === pagination.currentPage}
+                isActive={isActive}
               >
                 {page}
               </PaginationLink>
@@ -43,7 +53,13 @@ export function PoliciesPagination({ pagination }: PoliciesPaginationProps) {
         })}
         {pagination.hasNextPage ? (
           <PaginationItem>
-            <PaginationNext href={getPageHref(pagination.currentPage + 1)} />
+            <PaginationLink
+              aria-label="Go to next page"
+              className="rounded-full"
+              href={getPageHref(pagination.currentPage + 1)}
+            >
+              <ChevronRightIcon aria-hidden="true" />
+            </PaginationLink>
           </PaginationItem>
         ) : null}
       </PaginationContent>
