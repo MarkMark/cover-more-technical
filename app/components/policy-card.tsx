@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { ExternalLink } from "lucide-react";
+import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -73,9 +74,9 @@ function PolicyCardFacts({
   factGroups: PolicyCardModel["factGroups"];
 }) {
   return (
-    <div className={cn("grid", "gap-1", "md:grid-cols-2 md:gap-8")}>
+    <div className={cn("grid", "items-start gap-1", "md:grid-cols-2 md:gap-8")}>
       {factGroups.map((facts, index) => (
-        <PolicyCardFactGroup key={index} hasDivider={index > 0}>
+        <PolicyCardFactGroup key={index} hasDivider={index === 0}>
           {facts.map((fact) => (
             <PolicyCardFact key={fact.label} {...fact} />
           ))}
@@ -93,7 +94,7 @@ function PolicyCardFactGroup({
   hasDivider: boolean;
 }) {
   return (
-    <dl className={cn("grid", "gap-1", hasDivider && "md:border-l md:pl-8")}>
+    <dl className={cn("grid", "gap-1", hasDivider && "md:border-r md:pr-8")}>
       {children}
     </dl>
   );
@@ -116,12 +117,11 @@ function PolicyCardDocuments({
   return (
     <div className={cn("flex flex-wrap", "gap-x-8 gap-y-3")}>
       {documents.map((document) => (
-        <a
+        <Link
           className={cn(
             "inline-flex items-center",
             "gap-2",
             "text-xs underline underline-offset-2",
-            "md:text-sm",
           )}
           href={document.href}
           key={document.label}
@@ -130,7 +130,7 @@ function PolicyCardDocuments({
         >
           <ExternalLink aria-hidden="true" className={cn("size-4")} />
           {document.label}
-        </a>
+        </Link>
       ))}
     </div>
   );
